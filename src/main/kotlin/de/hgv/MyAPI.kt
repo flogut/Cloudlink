@@ -4,12 +4,12 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.instance
-import de.hgv.controller.DataController
-import de.hgv.controller.PictureController
 import de.hgv.model.Data
 import de.hgv.model.MyRole
 import de.hgv.model.Picture
 import de.hgv.model.User
+import de.hgv.rest.DataController
+import de.hgv.rest.PictureController
 import de.hgv.websocket.ReceiveDataWebSocket
 import de.hgv.websocket.ReceivePicturesWebSocket
 import de.hgv.websocket.SendDataWebSocket
@@ -81,7 +81,7 @@ class MyAPI(private val picturesDirectory: File) {
         //Control login
         server.accessManager { handler, ctx, permittedRoles ->
             val userRole = getUserRole(ctx)
-            if (permittedRoles.contains(userRole)) {
+            if (userRole in permittedRoles) {
                 handler.handle(ctx)
             } else {
                 ctx.status(401).result("Unauthorized")

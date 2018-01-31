@@ -5,15 +5,12 @@ Benutzung:
 
 ``` 
     java -jar server.jar <Ordner, in dem die hochgeladenen Bilder gespeichert werden>
-    
 ```
 
 # Datenbank
 
 Damit der Server funktioniert, muss auf Port 3306 eine MySQL-Datenbank
-mit dem Namen "hibernate" laufen.  
-Username: hibernate  
-Passwort: hibernatePassword  
+mit dem Namen "hibernate" laufen.
 Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
 hinterlegt.
 
@@ -22,7 +19,7 @@ hinterlegt.
 ## Zugangsdaten
 
 Um auf die REST-API zugreifen zu können, müssen via HTTP-BasicAuth
-Zugangsdaten mitgeschickt werden.
+Zugangsdaten mitgeschickt werden. Sind die Daten inkorrekt oder fehlen die nötigen Rechte, wird der Status-Code 401 zurückgesendet.
 
 ## GET-Requests
 
@@ -107,7 +104,6 @@ haben folgendes Format:
 
 ``` 
     <Datentyp> <Wert>
-    
 ```
 
 ### Bilder

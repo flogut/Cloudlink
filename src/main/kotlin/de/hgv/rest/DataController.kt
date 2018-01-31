@@ -1,11 +1,11 @@
-package de.hgv.controller
+package de.hgv.rest
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.instance
-import de.hgv.model.DataType
 import de.hgv.broadcastMessage
 import de.hgv.model.Data
+import de.hgv.model.DataType
 import de.hgv.transaction
 import io.javalin.Context
 import io.javalin.embeddedserver.jetty.websocket.WsSession
@@ -60,7 +60,7 @@ class DataController {
     }
 
     fun postData(ctx: Context) {
-        val type = when(ctx.queryParam("type")) {
+        val type = when (ctx.queryParam("type")) {
             "height" -> DataType.HEIGHT
             "temperature" -> DataType.TEMPERATURE
             else -> null

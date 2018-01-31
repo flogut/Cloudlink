@@ -1,4 +1,4 @@
-package de.hgv.controller
+package de.hgv.rest
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.conf.global
@@ -98,7 +98,7 @@ class PictureController {
 
         if (picturesDirectory.listFiles().any { it.nameWithoutExtension == id }) {
             val img = File("${picturesDirectory.path}\\$id.$type")
-            val contentType = when(type) {
+            val contentType = when (type) {
                 "jpg" -> "image/jpeg"
                 "png" -> "image/png"
                 else -> "image/jpeg"
