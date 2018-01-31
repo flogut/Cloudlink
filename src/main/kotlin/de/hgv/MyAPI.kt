@@ -16,7 +16,6 @@ import de.hgv.websocket.SendDataWebSocket
 import de.hgv.websocket.SendPictureWebSocket
 import io.javalin.Context
 import io.javalin.Javalin
-import io.javalin.builder.CookieBuilder
 import io.javalin.embeddedserver.jetty.websocket.WsSession
 import org.apache.logging.log4j.LogManager
 import org.hibernate.SessionFactory
@@ -117,8 +116,7 @@ class MyAPI(private val picturesDirectory: File) {
             receiveTokens.add(token)
         }
 
-        //TODO Set secureFlag after implementing an SSL server
-        ctx.cookie(CookieBuilder(name = "token", value = token, maxAge = -1, secure = false))
+        ctx.result(token)
     }
 
     private fun getUserRole(ctx: Context) = ctx.basicAuthCredentials()?.let { getUserRole(it.username, it.password) }

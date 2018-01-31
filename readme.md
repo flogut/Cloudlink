@@ -56,8 +56,7 @@ Für POST-Requests sind Schreibrechte erforderlich. Liste aller URLs:
 ## Authentifizierung
 
 Da bei WebSockets die Authentifizierung über HTTP-BasicAuth nicht
-möglich ist, wird hierfür ein Token benötigt. Diesen erhält man als
-Cookie "token" nach einer GET-Request auf [/login](/login) mit den
+möglich ist, wird hierfür ein Token benötigt. Diesen erhält durch eine GET-Request auf [/login](/login) mit den
 üblichen HTTP-BasicAuth-Zugangsdaten.
 
 ## Senden
