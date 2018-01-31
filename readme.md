@@ -1,0 +1,121 @@
+# Allgemeines
+
+Der Server läuft auf Port 7000.
+Benutzung:
+
+``` 
+    java -jar server.jar <Ordner, in dem die hochgeladenen Bilder gespeichert werden>
+    
+```
+
+# Datenbank
+
+Damit der Server funktioniert, muss auf Port 3306 eine MySQL-Datenbank
+mit dem Namen "hibernate" laufen.  
+Username: hibernate  
+Passwort: hibernatePassword  
+Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
+hinterlegt.
+
+# REST
+
+## Zugangsdaten
+
+Um auf die REST-API zugreifen zu können, müssen via HTTP-BasicAuth
+Zugangsdaten mitgeschickt werden.
+
+## GET-Requests
+
+Für GET-Requests sind lediglich Leserechte erforderlich. Liste aller
+URLs:
+
+  - [/picture](/picture) sendet das neueste Bild zurück
+
+  - [/pictures/:id](/pictures/:id) sendet das Bild mit der ID :id zurück
+
+  - [/pictures](/pictures) sendet eine Liste aller Bilder als JSON
+    zurück
+
+  - [/data?time=:time\&type=:type](/data?time=:time&type=:type) sendet
+    eine Liste aller Messdaten vom Typ :type, die nach :time erstellt
+    wurden, als JSON zurück. Werden einer oder mehrere der Parameter
+    nicht gesetzt, werden sie nicht beachtet. :time hat das Format
+    "yyyy-mm-dd hh:mm:ss".
+
+## POST-Requests
+
+Für POST-Requests sind Schreibrechte erforderlich. Liste aller URLs:
+
+  - [/data?type=:type\&value=:value](/data?type=:type&value=:value) fügt
+    ein Messdatum vom Typ :type mit Wert :value mit der aktuellen Zeit
+    in die Datenbank ein
+
+  - [/picture](/picture) lädt ein Bild hoch. Eine HTML-form, die das
+    macht, muss enctype="multipart/form-data" als Attribut haben. Der
+    Name des Dateiparameters in der Request muss "picture" lauten.
+
+# WebSockets
+
+## Authentifizierung
+
+Da bei WebSockets die Authentifizierung über HTTP-BasicAuth nicht
+möglich ist, wird hierfür ein Token benötigt. Diesen erhält man als
+Cookie "token" nach einer GET-Request auf [/login](/login) mit den
+üblichen HTTP-BasicAuth-Zugangsdaten.
+
+## Senden
+
+### Messdaten
+
+Der Websocket zum Senden von Messdaten ist unter
+[/sendData?token=:token](/sendData?token=:token) zu erreichen. :token
+ist hierbei der Authentifizierungstoken. Das Protokoll ist nicht
+[http(s)://](http\(s\)://), sondern <ws://>. Zum Senden von Messdaten
+sind Schreibrechte erforderlich. Zum Senden muss eine Nachricht von
+folgendem Format verschickt werden:
+
+``` 
+    <Datentyp> <Wert>
+    
+```
+
+Im momentanen Prototypen-Status sind nur "height" und
+"temperature" erlaubte Datentypen und der Wert muss als Double
+vorliegen.
+
+### Bilder
+
+Der Websocket zum Senden von Bildern ist unter
+[/sendPictures?token=:token](/sendPictures?token=:token) zu erreichen.
+:token ist hierbei der Authentifizierungstoken. Das Protokoll ist nicht
+[http(s)://](http\(s\)://), sondern <ws://>. Zum Senden von Bildern sind
+Schreibrechte erforderlich. Das Bild wird binär versendet.
+
+## Empfangen
+
+Die Websockets zum Empfangen werden sofort nach Upload neuer Daten auf
+den Server über die Daten benachrichtigt.
+
+### Messdaten
+
+Der Websocket zum Empfangen von Messdaten ist unter
+[/receiveData?token=:token](/receiveData?token=:token) zu erreichen.
+:token ist hierbei der Authentifizierungstoken. Das Protokoll ist nicht
+[http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von Messdaten
+sind Leserechte erforderlich. Die vom Server gesendeten Nachrichten
+haben folgendes Format:
+
+``` 
+    <Datentyp> <Wert>
+    
+```
+
+### Bilder
+
+Der Websocket zum Empfangen von Bildern ist unter
+[/receivePictures?token=:token](/receivePictures?token=:token) zu
+erreichen. :token ist hierbei der Authentifizierungstoken. Das Protokoll
+ist nicht [http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von
+Bildern sind Leserechte erforderlich. Das Bild wird als normale
+Nachricht als BASE64-encodierter String versendet. Dies wird sich im
+Laufe der Entwicklung vermutlich noch ändern.
