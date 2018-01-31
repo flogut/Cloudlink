@@ -13,6 +13,7 @@ Damit der Server funktioniert, muss auf Port 3306 eine MySQL-Datenbank
 mit dem Namen "hibernate" laufen.
 Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
 hinterlegt.
+Die Passwörter werden als SHA-512-Hash gespeichert.
 
 # REST
 
@@ -72,7 +73,6 @@ folgendem Format verschickt werden:
 
 ``` 
     <Datentyp> <Wert>
-    
 ```
 
 Im momentanen Prototypen-Status sind nur "height" und
