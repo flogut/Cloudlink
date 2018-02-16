@@ -18,7 +18,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket
 import org.hibernate.SessionFactory
 import java.util.*
 
-@WebSocket
+@WebSocket(maxIdleTime = 1000 * 60 * 60 * 24)
 class SendDataWebSocket {
 
     private val sessionFactory: SessionFactory = Kodein.global.instance()

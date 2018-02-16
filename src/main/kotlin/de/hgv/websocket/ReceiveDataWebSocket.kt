@@ -9,7 +9,7 @@ import org.eclipse.jetty.websocket.api.StatusCode
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
 import org.eclipse.jetty.websocket.api.annotations.WebSocket
 
-@WebSocket
+@WebSocket(maxIdleTime = 1000 * 60 * 60 * 24)
 class ReceiveDataWebSocket {
 
     private val receiveDataSessions: MutableList<WsSession> = Kodein.global.instance("receiveDataSessions")

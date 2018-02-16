@@ -18,7 +18,7 @@ import org.hibernate.SessionFactory
 import java.io.File
 import java.util.*
 
-@WebSocket(maxBinaryMessageSize = 5 * 1024 * 1024)
+@WebSocket(maxBinaryMessageSize = 5 * 1024 * 1024, maxIdleTime = 1000 * 60 * 60 * 24)
 class SendPictureWebSocket {
 
     private val sessionFactory: SessionFactory = Kodein.global.instance()
