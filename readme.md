@@ -111,6 +111,4 @@ Der Websocket zum Empfangen von Bildern ist unter
 [/receivePictures?token=:token](/receivePictures?token=:token) zu
 erreichen. :token ist hierbei der Authentifizierungstoken. Das Protokoll
 ist nicht [http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von
-Bildern sind Leserechte erforderlich. Das Bild wird als normale
-Nachricht als BASE64-encodierter String versendet. Dies wird sich im
-Laufe der Entwicklung vermutlich noch ändern.
+Bildern sind Leserechte erforderlich. Eine Nachricht im WebSocket enthält Bild-ID, Datum und Dateityp als JSON.
