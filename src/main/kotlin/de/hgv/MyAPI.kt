@@ -91,7 +91,7 @@ class MyAPI(private val picturesDirectory: File) {
         val pictureController = PictureController()
         val dataController = DataController()
 
-        server.get("/login", this::login, listOf(MyRole.READ, MyRole.WRITE))
+        server.get("/login", this::login)
         server.get("/picture", pictureController::getNewestPicture, listOf(MyRole.READ, MyRole.WRITE))
         server.get("/pictures/:id", pictureController::getPicture, listOf(MyRole.READ, MyRole.WRITE))
         server.get("/pictures", pictureController::getAllPictures, listOf(MyRole.READ, MyRole.WRITE))
@@ -103,10 +103,6 @@ class MyAPI(private val picturesDirectory: File) {
 
     private fun login(ctx: Context) {
         val role = getUserRole(ctx)
-        if (role == null) {
-            ctx.response().status = 401
-        }
-
         val token = UUID.randomUUID().toString()
 
         if (role == MyRole.WRITE) {
@@ -119,20 +115,21 @@ class MyAPI(private val picturesDirectory: File) {
         ctx.result(token)
     }
 
-    private fun getUserRole(ctx: Context) = ctx.basicAuthCredentials()?.let { getUserRole(it.username, it.password) }
+    private fun getUserRole(ctx: Context): MyRole =
+        ctx.basicAuthCredentials()?.let { getUserRole(it.username, it.password) } ?: MyRole.READ
 
-    private fun getUserRole(username: String, password: String) = try {
+    private fun getUserRole(username: String, password: String): MyRole = try {
         transaction(sessionFactory) {
             val query = createQuery("SELECT U.role FROM User U WHERE U.username = :username AND password = :password")
             query.setParameter("username", username)
             query.setParameter("password", password.hash("SHA-512"))
 
             val roles = query.list().map { it as MyRole }
-            if (roles.isNotEmpty()) roles[0] else null
+            if (roles.isNotEmpty()) roles[0] else MyRole.READ
         }
     } catch (exception: Exception) {
         LOGGER.error(exception)
-        null
+        MyRole.READ
     }
 
     private fun createSessionFactory(): SessionFactory {

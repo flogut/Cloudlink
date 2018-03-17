@@ -62,6 +62,7 @@ class SendDataWebSocket {
     }
 
     private fun storeData(data: Data) {
+        //TODO Check plausibility to avoid storing corrupted data
         try {
             transaction(sessionFactory) {
                 save(data)
