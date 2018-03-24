@@ -15,6 +15,9 @@ Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
 hinterlegt.
 Die Passwörter werden als SHA-512-Hash gespeichert.
 
+# Datentypen
+Momentan sind lediglich "height", "temperature", "latitude" und "longitude" valide Datentypen. Der Wert muss jeweils als Double vorliegen. 
+
 # REST
 
 ## Zugangsdaten
@@ -74,10 +77,6 @@ folgendem Format verschickt werden:
 ``` 
     <Datentyp> <Wert>
 ```
-
-Im momentanen Prototypen-Status sind nur "height" und
-"temperature" erlaubte Datentypen und der Wert muss als Double
-vorliegen.
 
 ### Bilder
 
