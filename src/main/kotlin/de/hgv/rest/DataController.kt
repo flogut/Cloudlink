@@ -22,11 +22,7 @@ class DataController {
 
     fun getData(ctx: Context) {
         val time = ctx.queryParam("time")?.let { SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(it) }
-        val type = when (ctx.queryParam("type")) {
-            "height" -> DataType.HEIGHT
-            "temperature" -> DataType.TEMPERATURE
-            else -> null
-        }
+        val type = DataType.get(ctx.queryParam("type"))
 
         try {
             val data = transaction(sessionFactory) {
@@ -60,11 +56,7 @@ class DataController {
     }
 
     fun postData(ctx: Context) {
-        val type = when (ctx.queryParam("type")) {
-            "height" -> DataType.HEIGHT
-            "temperature" -> DataType.TEMPERATURE
-            else -> null
-        }
+        val type = DataType.get(ctx.queryParam("type"))
         val value = ctx.queryParam("value")?.toDouble()
 
         if (type == null || value == null) {

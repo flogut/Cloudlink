@@ -47,11 +47,7 @@ class SendDataWebSocket {
             throw IllegalArgumentException("$cmd is no valid message. Format: <data type> <value>")
         }
 
-        val type = when (cmd[0]) {
-            "height" -> DataType.HEIGHT
-            "temperature" -> DataType.TEMPERATURE
-            else -> throw IllegalArgumentException("${cmd[0]} is no valid type")
-        }
+        val type = DataType.get(cmd[0]) ?: throw IllegalArgumentException("${cmd[0]} is no valid type")
 
         val value = cmd[1].toDoubleOrNull() ?: throw IllegalArgumentException("${cmd[1]} is no double")
 
