@@ -24,7 +24,7 @@ Zugangsdaten mitgeschickt werden. Sind die Daten inkorrekt oder fehlen die nöti
 
 ## GET-Requests
 
-Für GET-Requests sind lediglich Leserechte erforderlich. Liste aller
+Für GET-Requests keine Berechtigungen/Zugangsdaten erforderlich. Liste aller
 URLs:
 
   - [/picture](/picture) sendet das neueste Bild zurück
@@ -95,10 +95,9 @@ den Server über die Daten benachrichtigt.
 ### Messdaten
 
 Der Websocket zum Empfangen von Messdaten ist unter
-[/receiveData?token=:token](/receiveData?token=:token) zu erreichen.
-:token ist hierbei der Authentifizierungstoken. Das Protokoll ist nicht
+[/receiveData](/receiveData) zu erreichen. Das Protokoll ist nicht
 [http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von Messdaten
-sind Leserechte erforderlich. Die vom Server gesendeten Nachrichten
+keine Rechte erforderlich. Die vom Server gesendeten Nachrichten
 haben folgendes Format:
 
 ``` 
@@ -108,7 +107,6 @@ haben folgendes Format:
 ### Bilder
 
 Der Websocket zum Empfangen von Bildern ist unter
-[/receivePictures?token=:token](/receivePictures?token=:token) zu
-erreichen. :token ist hierbei der Authentifizierungstoken. Das Protokoll
-ist nicht [http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von
-Bildern sind Leserechte erforderlich. Eine Nachricht im WebSocket enthält Bild-ID, Datum und Dateityp als JSON.
+[/receivePictures](/receivePictures) zu
+erreichen. Das Protokoll ist nicht [http(s)://](http\(s\)://), sondern <ws://>. Zum Empfangen von
+Bildern sind keine Rechte erforderlich. Eine Nachricht im WebSocket enthält Bild-ID, Datum und Dateityp als JSON.
