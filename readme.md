@@ -14,6 +14,8 @@ mit dem Namen "hibernate" laufen.
 Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
 hinterlegt.
 Die Passwörter werden als SHA-512-Hash gespeichert.
+Username: hibernate
+Passwort: hibernatePasswort
 
 # Datentypen
 Momentan sind lediglich "height", "temperature", "latitude" und "longitude" valide Datentypen. Der Wert muss jeweils als Double vorliegen. 
