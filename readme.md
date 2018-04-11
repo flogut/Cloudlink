@@ -14,7 +14,9 @@ mit dem Namen "hibernate" laufen.
 Die Struktur der Datenbank ist zum Importieren in der .sql-Datei
 hinterlegt.
 Die Passwörter werden als SHA-512-Hash gespeichert.
+
 Username: hibernate
+
 Passwort: hibernatePasswort
 
 # Datentypen
