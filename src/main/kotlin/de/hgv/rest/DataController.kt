@@ -66,7 +66,9 @@ class DataController {
             return
         }
 
-        val data = Data(UUID.randomUUID().toString(), type, value, Date())
+        val date = Date()
+
+        val data = Data(UUID.randomUUID().toString(), type, value, date, date.time)
 
         try {
             transaction(sessionFactory) {

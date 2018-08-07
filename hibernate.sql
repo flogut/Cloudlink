@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Jan 2018 um 18:40
+-- Erstellungszeit: 07. Aug 2018 um 23:29
 -- Server Version: 5.6.16
 -- PHP-Version: 5.5.9
 
@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `data` (
   `id` varchar(36) NOT NULL,
   `type` int(11) NOT NULL,
   `value` double NOT NULL,
-  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timeMillis` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

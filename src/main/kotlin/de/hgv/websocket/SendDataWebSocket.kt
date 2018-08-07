@@ -51,7 +51,9 @@ class SendDataWebSocket {
 
         val value = cmd[1].toDoubleOrNull() ?: throw IllegalArgumentException("${cmd[1]} is no double")
 
-        val data = Data(UUID.randomUUID().toString(), type, value, Date())
+        val date = Date()
+
+        val data = Data(UUID.randomUUID().toString(), type, value, date, date.time)
         storeData(data)
 
         broadcastMessage(receiveSessions, JavalinJacksonPlugin.toJson(data))
