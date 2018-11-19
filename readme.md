@@ -1,3 +1,5 @@
+Neuer Server (mit Web-Client): [Cirrus](https://github.com/flogut/cirrus)
+
 # Allgemeines
 
 Der Server läuft auf Port 7000.
